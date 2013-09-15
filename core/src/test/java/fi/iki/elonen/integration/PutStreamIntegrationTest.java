@@ -1,22 +1,17 @@
 package fi.iki.elonen.integration;
 
-import static org.junit.Assert.assertEquals;
+import fi.iki.elonen.NanoHTTPD;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.junit.Test;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import fi.iki.elonen.NanoHTTPD;
+import static org.junit.Assert.assertEquals;
 
 public class PutStreamIntegrationTest extends IntegrationTestBase<PutStreamIntegrationTest.TestServer> {
 
@@ -42,8 +37,7 @@ public class PutStreamIntegrationTest extends IntegrationTestBase<PutStreamInteg
         }
 
         @Override
-        public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files)
-        {
+        public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
             throw new UnsupportedOperationException();
         }
 
@@ -58,8 +52,7 @@ public class PutStreamIntegrationTest extends IntegrationTestBase<PutStreamInteg
                 DataInputStream dataInputStream = new DataInputStream(session.getInputStream());
                 body = new byte[contentLength];
                 dataInputStream.readFully(body, 0, contentLength);
-            }
-            catch(IOException e) {
+            } catch (IOException e) {
                 return new Response(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, e.getMessage());
             }
 

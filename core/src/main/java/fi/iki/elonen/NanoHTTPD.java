@@ -214,7 +214,7 @@ public abstract class NanoHTTPD {
      */
     @Deprecated
     public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms,
-                                   Map<String, String> files) {
+                          Map<String, String> files) {
         return new Response(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
     }
 
@@ -568,7 +568,7 @@ public abstract class NanoHTTPD {
 
                 int pending = data != null ? data.available() : 0; // This is to support partial sends, see serveFile()
                 pw.print("Connection: keep-alive\r\n");
-                pw.print("Content-Length: "+pending+"\r\n");
+                pw.print("Content-Length: " + pending + "\r\n");
 
                 pw.print("\r\n");
                 pw.flush();

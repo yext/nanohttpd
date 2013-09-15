@@ -45,9 +45,10 @@ public class TempFilesServer extends DebugServer {
             }
             for (TempFile file : tempFiles) {
                 try {
-                    System.out.println("   "+file.getName());
+                    System.out.println("   " + file.getName());
                     file.delete();
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
             tempFiles.clear();
         }

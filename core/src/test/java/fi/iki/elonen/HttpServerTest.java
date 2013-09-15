@@ -46,8 +46,8 @@ public class HttpServerTest {
         for (int i = 0; i < expected.length; i++) {
             String line = lines.get(i);
             assertTrue("Output line " + i + " doesn't match expectation.\n" +
-                    "  Output: " + line + "\n" +
-                    "Expected: " + expected[i], line.matches(expected[i]));
+                "  Output: " + line + "\n" +
+                "Expected: " + expected[i], line.matches(expected[i]));
         }
     }
 
@@ -58,7 +58,7 @@ public class HttpServerTest {
         try {
             session.execute();
         } catch (IOException e) {
-            fail(""+e);
+            fail("" + e);
             e.printStackTrace();
         }
         return outputStream;

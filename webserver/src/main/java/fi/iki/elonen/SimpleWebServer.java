@@ -131,7 +131,7 @@ public class SimpleWebServer extends NanoHTTPD {
         }
 
         options.put("host", host);
-        options.put("port", ""+port);
+        options.put("port", "" + port);
         options.put("quiet", String.valueOf(quiet));
         StringBuilder sb = new StringBuilder();
         for (File dir : rootDirs) {
@@ -140,7 +140,8 @@ public class SimpleWebServer extends NanoHTTPD {
             }
             try {
                 sb.append(dir.getCanonicalPath());
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
         options.put("home", sb.toString());
 

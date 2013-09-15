@@ -2,9 +2,6 @@ package fi.iki.elonen;
 
 import org.junit.Test;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 import static junit.framework.Assert.assertEquals;
 
 public class HttpParsingTest extends HttpServerTest {

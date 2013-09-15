@@ -1,26 +1,18 @@
 package fi.iki.elonen;
 
-import org.pegdown.PegDownProcessor;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
-import static fi.iki.elonen.NanoHTTPD.MIME_HTML;
-import static fi.iki.elonen.NanoHTTPD.Response.Status.OK;
-
 /**
  * @author Paul S. Hawke (paul.hawke@gmail.com)
  *         On: 9/13/13 at 4:03 AM
  */
-public class MarkdownWebServerPlugin implements WebServerPlugin {
+public class SSIWebServerPlugin implements WebServerPlugin {
 
-    private final PegDownProcessor processor;
-
-    public MarkdownWebServerPlugin() {
-        processor = new PegDownProcessor();
+    public SSIWebServerPlugin() {
     }
 
     @Override public void initialize(Map<String, String> commandLineOptions) {
@@ -32,9 +24,7 @@ public class MarkdownWebServerPlugin implements WebServerPlugin {
     }
 
     @Override public NanoHTTPD.Response serveFile(String uri, Map<String, String> headers, File file, String mimeType) {
-        String markdownSource = readSource(file);
-        return markdownSource == null ? null :
-            new NanoHTTPD.Response(OK, MIME_HTML, processor.markdownToHtml(markdownSource));
+        return null;
     }
 
     private String readSource(File file) {

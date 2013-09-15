@@ -1,7 +1,6 @@
 package fi.iki.elonen.integration;
 
 import fi.iki.elonen.NanoHTTPD;
-import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.After;
 import org.junit.Before;

@@ -14,12 +14,12 @@ public class HttpGetRequestTest extends HttpServerTest {
         ByteArrayOutputStream outputStream = invokeServer("GET " + URI + " HTTP/1.1");
 
         String[] expected = {
-                "HTTP/1.1 200 OK",
-                "Content-Type: text/html",
-                "Date: .*",
-                "Connection: keep-alive",
-                "Content-Length: 0",
-                ""
+            "HTTP/1.1 200 OK",
+            "Content-Type: text/html",
+            "Date: .*",
+            "Connection: keep-alive",
+            "Content-Length: 0",
+            ""
         };
 
         assertResponse(outputStream, expected);
@@ -32,13 +32,13 @@ public class HttpGetRequestTest extends HttpServerTest {
         ByteArrayOutputStream outputStream = invokeServer("GET " + URI + " HTTP/1.1");
 
         String[] expected = {
-                "HTTP/1.1 200 OK",
-                "Content-Type: text/html",
-                "Date: .*",
-                "Connection: keep-alive",
-                "Content-Length: 8",
-                "",
-                responseBody
+            "HTTP/1.1 200 OK",
+            "Content-Type: text/html",
+            "Date: .*",
+            "Connection: keep-alive",
+            "Content-Length: 8",
+            "",
+            responseBody
         };
 
         assertResponse(outputStream, expected);
