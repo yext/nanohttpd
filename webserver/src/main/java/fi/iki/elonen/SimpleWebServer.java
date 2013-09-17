@@ -117,10 +117,10 @@ public class SimpleWebServer extends NanoHTTPD {
             } else if (args[i].equalsIgnoreCase("--licence")) {
                 System.out.println(LICENCE + "\n");
             } else if (args[i].startsWith("-X:")) {
-                int dot = args[i].indexOf('=');
-                if (dot > 0) {
-                    String name = args[i].substring(0, dot);
-                    String value = args[i].substring(dot + 1, args[i].length());
+                int equals = args[i].indexOf('=');
+                if (equals > 0) {
+                    String name = args[i].substring(3, equals);
+                    String value = args[i].substring(equals + 1, args[i].length());
                     options.put(name, value);
                 }
             }
@@ -153,9 +153,9 @@ public class SimpleWebServer extends NanoHTTPD {
                 if (!quiet) {
                     System.out.print("# Found plugin for Mime type: \"" + mime + "\"");
                     if (indexFiles != null) {
-                        System.out.print(" (serving index files: ");
+                        System.out.print(" (serving index files:");
                         for (String indexFile : indexFiles) {
-                            System.out.print(indexFile + " ");
+                            System.out.print(" " + indexFile);
                         }
                     }
                     System.out.println(").");

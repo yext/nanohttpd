@@ -10,7 +10,7 @@ public class SSIWebServerPluginInfo implements WebServerPluginInfo {
     }
 
     @Override public String[] getIndexFilesForMimeType(String mime) {
-        return new String[]{"index.shtml"};
+        return new String[]{"index.shtml", "index.shtm"};
     }
 
     @Override public WebServerPlugin getWebServerPlugin(String mimeType) {

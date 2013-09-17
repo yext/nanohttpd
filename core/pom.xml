@@ -8,7 +8,15 @@
     <packaging>jar</packaging>
 
     <name>NanoHttpd-Core</name>
-    <url>https://github.com/NanoHttpd/nanohttpd</url>
+    <description>NanoHttpd is a light-weight HTTP server designed for embedding in other applications.</description>
+    <url>http://nanohttpd.com/</url>
+
+    <licenses>
+        <license>
+            <name>The BSD 3-Clause License</name>
+            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
