@@ -4,14 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -64,7 +62,7 @@ public class SIIParserExecCommandTest {
 
     @Test
     public void testExecIsCalledForJavaCommand() {
-        when(exec.exec(java.lang.Integer.class, "100")).thenReturn("100");
+        when(exec.execJava(eq(java.lang.Integer.class), any(Map.class))).thenReturn("100");
 
         String source = "<html><head></head><body><!--#exec java=\"java.lang.Integer\" param=\"100\" --></body></html>";
         String expected = "<html><head></head><body>100</body></html>";

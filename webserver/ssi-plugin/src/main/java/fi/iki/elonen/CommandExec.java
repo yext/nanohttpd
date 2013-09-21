@@ -1,5 +1,8 @@
 package fi.iki.elonen;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Paul S. Hawke (paul.hawke@gmail.com)
  *         On: 9/16/13 at 11:58 PM
@@ -9,7 +12,7 @@ public class CommandExec {
         return "";
     }
 
-    public String exec(Class command, String param) {
+    public String execJava(Class command, Map<String, List<String>> param) {
         return "";
     }
 }

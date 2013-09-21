@@ -1,6 +1,6 @@
 package fi.iki.elonen;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Paul S. Hawke (paul.hawke@gmail.com)
@@ -30,28 +30,28 @@ public class SSIParser {
             int endComment = source.indexOf("-->", command);
             if (endComment > command) {
                 output.append(source.substring(start, command));
-                String commandString = source.substring(command + 5, source.indexOf(' ', command));
+                SsiComment parsed = new SsiComment(source.substring(command+5, endComment));
+                String commandString = parsed.getCommand();
 
                 if ("exec".equals(commandString)) {
-                    String externalExecutable = extractAttrValue(source, "cmd", command, endComment);
+                    String externalExecutable = parsed.getParam("cmd");
                     if (externalExecutable != null) {
                         output.append(commandExec.exec(externalExecutable));
                     } else {
-                        String javaExecutable = extractAttrValue(source, "java", command, endComment);
-                        String param = extractAttrValue(source, "param", command, endComment);
+                        String javaExecutable = parsed.getParam("java");
                         try {
-                            output.append(commandExec.exec(Class.forName(javaExecutable), param));
+                            output.append(commandExec.execJava(Class.forName(javaExecutable), parsed.getParameters()));
                         } catch (ClassNotFoundException ignored) {}
                     }
                 } else if ("set".equals(commandString)) {
-                    String varname = extractAttrValue(source, "var", command, endComment);
-                    String varValue = extractAttrValue(source, "value", command+varname.length()+6, endComment);
+                    String varname = parsed.getParam("var");
+                    String varValue = parsed.getParam("value");
 
                     if (varname != null && varValue != null) {
                         env.put(varname, varValue);
                     }
                 } else if ("echo".equals(commandString)) {
-                    String varname = extractAttrValue(source, "var", command, endComment);
+                    String varname = parsed.getParam("var");
                     String varValue = null;
                     if (varname != null) {
                         varValue = env.get(varname);
@@ -65,16 +65,51 @@ public class SSIParser {
         return output.toString();
     }
 
-    private String extractAttrValue(String source, String attrName, int start, int end) {
-        int attrNameLength = attrName.length();
-        int var = source.indexOf(attrName +"=\"", start);
-        String foo = null;
-        if (var > -1) {
-            int varEnd = source.indexOf("\"", var + attrNameLength + 2);
-            if (varEnd < end && varEnd > -1) {
-                foo = source.substring(var + attrNameLength + 2, varEnd);
+    private class SsiComment {
+        private String command;
+        private Map<String, List<String>> parameters;
+
+        public SsiComment(String text) {
+            parameters = new HashMap<String, List<String>>();
+            StringTokenizer tok = new StringTokenizer(text, " \t\n");
+            if (tok.hasMoreTokens()) {
+                command = tok.nextToken();
+            }
+            while (tok.hasMoreTokens()) {
+                String kvp = tok.nextToken();
+                int equals = kvp.indexOf('=');
+                if (equals == -1) {
+                    continue;
+                }
+                String key = kvp.substring(0,equals);
+                String value = kvp.substring(equals+2, kvp.length()-1);
+                List<String> paramValue = parameters.get(key);
+                if (paramValue == null) {
+                    paramValue = new ArrayList<String>();
+                    parameters.put(key, paramValue);
+                }
+                paramValue.add(value);
             }
         }
-        return foo;
+
+        private String getCommand() {
+            return command;
+        }
+
+        public String getParam(String param) {
+            List<String> value = parameters.get(param);
+            if (value == null || value.size() == 0) {
+                return null;
+            }
+            return value.get(0);
+        }
+
+        public List<String> getParamValues(String param) {
+            return parameters.get(param);
+        }
+
+        public Map<String, List<String>> getParameters() {
+            return parameters;
+        }
     }
 }

@@ -18,6 +18,10 @@
         </license>
     </licenses>
 
+    <scm>
+        <url>scm:git:https://github.com/NanoHttpd/nanohttpd.git</url>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
